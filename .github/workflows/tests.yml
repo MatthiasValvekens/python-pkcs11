@@ -15,6 +15,7 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
+          - macos-latest
         python-version:
           - "3.9"
           - "3.10"
@@ -41,12 +42,18 @@ jobs:
             echo "directories.tokendir = $(pwd)/softhsm_tokens" > /tmp/softhsm2.conf
             echo "SOFTHSM2_CONF=/tmp/softhsm2.conf" >> "$GITHUB_ENV"
             echo "PKCS11_MODULE=/usr/lib/softhsm/libsofthsm2.so" >> "$GITHUB_ENV"
-          else
+          elif [[ $OS_NAME == 'macos-latest' ]]; then
+            brew install softhsm
+            echo "PKCS11_MODULE=/opt/homebrew/lib/softhsm/libsofthsm2.so" >> "$GITHUB_ENV"
+          elif [[ $OS_NAME == 'windows-latest' ]]; then
             choco install softhsm.install
             echo "SOFTHSM2_CONF=D:/SoftHSM2/etc/softhsm2.conf" >> "$GITHUB_ENV"
             echo "PKCS11_MODULE=D:/SoftHSM2/lib/softhsm2-x64.dll" >> "$GITHUB_ENV"
             echo "D:/SoftHSM2/bin" >> "$GITHUB_PATH"
             echo "D:/SoftHSM2/lib" >> "$GITHUB_PATH"
+          else
+            echo "$OS_NAME is not a supported target system"
+            exit 1
           fi
         env:
           OS_NAME: ${{ matrix.os }}

@@ -50,6 +50,11 @@ extend-select = [
 [tool.ruff.lint.isort]
 combine-as-imports = true
 
+[tool.setuptools]
+ext-modules = [
+    {name = "pkcs11._pkcs11", sources = ["pkcs11/_pkcs11.pyx"]}
+]
+
 [tool.setuptools.packages.find]
 include = ["pkcs11*"]
 

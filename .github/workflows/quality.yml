@@ -3,6 +3,7 @@ on:
   push:
 env:
   UV_PYTHON_PREFERENCE: only-system
+  UV_NO_SYNC: "1"
 jobs:
   run:
     runs-on: ubuntu-latest

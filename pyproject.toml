@@ -1,10 +1,9 @@
 [build-system]
-requires = ["setuptools>=80.8", "cython"]
+requires = ["setuptools>=80.8", "cython", "setuptools-scm>=8.3.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-pkcs11"
-version = "0.7.0"
 description = "PKCS#11 support for Python"
 readme = "README.rst"
 authors = [
@@ -27,6 +26,7 @@ classifiers = [
 dependencies = ["asn1crypto>=1.4.0"]
 license = "MIT"
 requires-python = ">=3.9"
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://python-pkcs11.readthedocs.io/en/latest/"
@@ -55,6 +55,15 @@ ext-modules = [
     {name = "pkcs11._pkcs11", sources = ["pkcs11/_pkcs11.pyx"]}
 ]
 
+[tool.cibuildwheel.linux]
+archs = ["auto64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
+
 [tool.setuptools.packages.find]
 include = ["pkcs11*"]
 
@@ -73,6 +82,7 @@ lint = [
 ]
 release = [
     "setuptools>=80.8",
+    "setuptools-scm>=8.3.1",
     "cython",
 ]
 docs-build = [
@@ -85,3 +95,5 @@ dev = [
     { include-group = "lint" },
     { include-group = "release" },
 ]
+
+[tool.setuptools_scm]

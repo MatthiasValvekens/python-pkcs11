@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-pkcs11"
-version = "0.7.0"
+version = "0.0.0.dev1"
 description = "PKCS#11 support for Python"
 readme = "README.rst"
 authors = [
@@ -55,6 +55,15 @@ ext-modules = [
     {name = "pkcs11._pkcs11", sources = ["pkcs11/_pkcs11.pyx"]}
 ]
 
+[tool.cibuildwheel.linux]
+archs = ["auto64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
+
 [tool.setuptools.packages.find]
 include = ["pkcs11*"]
 
@@ -74,6 +83,7 @@ lint = [
 release = [
     "setuptools>=80.8",
     "cython",
+    "tomlkit>=0.13.2",
 ]
 docs-build = [
     { include-group = "docs" },

@@ -625,10 +625,7 @@ cdef inline CK_ULONG_buffer(length):
     return array(shape=(length,), itemsize=sizeof(CK_ULONG), format='L')
 
 
-cdef inline object map_rv_to_error(
-        CK_RV rv
-):
-
+cdef inline object map_rv_to_error(CK_RV rv):  # pragma: nocover
     if rv == CKR_ATTRIBUTE_TYPE_INVALID:
         exc = AttributeTypeInvalid()
     elif rv == CKR_ATTRIBUTE_VALUE_INVALID:

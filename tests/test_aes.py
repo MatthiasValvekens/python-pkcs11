@@ -672,8 +672,6 @@ class AESTests(TestCase):
             ),
         ]
     )
-    # https://github.com/opencryptoki/opencryptoki/issues/881
-    @FIXME.opencryptoki
     @requires(Mechanism.AES_CTR)
     def test_aes_ctr_test_vector(self, key, plaintext, nonce, iv, expected_ciphertext):
         """Official test vectors from RFC 3686"""
